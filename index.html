@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Health Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Auth Screen (Login/Register) -->
+    <div id="authScreen" class="screen active">
+        <div class="auth-container">
+            <!-- Left Panel - Welcome Message -->
+            <div class="auth-left-panel">
+                <div class="welcome-content">
+                    <h1 id="welcomeTitle">Welcome Back!</h1>
+                    <p id="welcomeSubtitle">Sign in to access your digital health services</p>
+                    <div class="diagonal-shape"></div>
+                </div>
+            </div>
+            
+            <!-- Right Panel - Forms -->
+            <div class="auth-right-panel">
+                <div class="forms-container" id="formsContainer">
+                    <!-- Login Form -->
+                    <div class="auth-form auth-form-login" id="loginForm">
+                        <h2>Sign In</h2>
+                        <p class="form-subtitle">Enter your credentials to continue</p>
+                        
+                        <div class="form-group">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" placeholder="Enter your username" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="handleLogin()">Sign In</button>
+                        
+                        <p class="toggle-form-text">
+                            Don't have an account? 
+                            <a href="#" onclick="toggleAuthForm(event)">Register here</a>
+                        </p>
+                    </div>
+                    
+                    <!-- Register Form -->
+                    <div class="auth-form auth-form-register" id="registerForm">
+                        <h2>Create Account</h2>
+                        <p class="form-subtitle">Join our digital health platform</p>
+                        
+                        <div class="form-group">
+                            <label for="registerUsername">Username</label>
+                            <input type="text" id="registerUsername" placeholder="Choose a username" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" placeholder="Create a password" required>
+                        </div>
+                        
+                        <button class="btn btn-primary" onclick="handleRegister()">Create Account</button>
+                        
+                        <p class="toggle-form-text">
+                            Already have an account? 
+                            <a href="#" onclick="toggleAuthForm(event)">Sign in here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Screen (After Login) -->
+    <div id="appScreen" class="screen">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <h1 class="app-title">Digital Health Platform</h1>
+            <button class="btn btn-logout" onclick="handleLogout()">Logout</button>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Home Screen -->
+            <div id="homeScreen" class="content-screen active">
+                <h2 class="screen-title">Digital Health Projects</h2>
+                <div class="projects-grid">
+                    <button class="project-card" onclick="navigateToScreen('epharmacyScreen')">
+                        <div class="project-icon">💊</div>
+                        <h3>E-Pharmacy</h3>
+                        <p>Browse and order medicines online</p>
+                    </button>
+                    
+                    <button class="project-card" onclick="navigateToScreen('aiHelperScreen')">
+                        <div class="project-icon">🤖</div>
+                        <h3>AI Health Assistant</h3>
+                        <p>Get instant health advice</p>
+                    </button>
+                    
+                    <button class="project-card" onclick="navigateToScreen('physioScreen')">
+                        <div class="project-icon">🏃</div>
+                        <h3>Physiotherapy Demo</h3>
+                        <p>Interactive physio exercises</p>
+                    </button>
+                    
+                    <button class="project-card" onclick="navigateToScreen('claimScreen')">
+                        <div class="project-icon">📋</div>
+                        <h3>Insurance Claim</h3>
+                        <p>Submit and track claims</p>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Explore Screen -->
+            <div id="exploreScreen" class="content-screen">
+                <h2 class="screen-title">Explore Services</h2>
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">🔍</div>
+                    <h3>Discover Health Services</h3>
+                    <p>Browse through our comprehensive healthcare offerings and find the services that best suit your needs.</p>
+                    <div class="service-list">
+                        <div class="service-item">🩺 Consultations</div>
+                        <div class="service-item">🏥 Hospital Network</div>
+                        <div class="service-item">🧪 Lab Tests</div>
+                        <div class="service-item">🚑 Emergency Services</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Claim Screen -->
+            <div id="claimScreen" class="content-screen">
+                <h2 class="screen-title">Insurance Claim</h2>
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">📋</div>
+                    <h3>Submit Your Claim</h3>
+                    <p>File and track your insurance claims easily.</p>
+                    <div class="claim-form">
+                        <div class="form-group">
+                            <label>Policy Number</label>
+                            <input type="text" placeholder="Enter policy number" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Claim Type</label>
+                            <select class="form-control">
+                                <option>Medical Treatment</option>
+                                <option>Hospitalization</option>
+                                <option>Pharmacy</option>
+                                <option>Lab Tests</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="number" placeholder="Enter claim amount" class="form-control">
+                        </div>
+                        <button class="btn btn-primary">Submit Claim</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Physio Screen -->
+            <div id="physioScreen" class="content-screen">
+                <h2 class="screen-title">Physiotherapy Exercises</h2>
+                <div class="video-container-main">
+                    <div class="video-grid">
+                        <!-- Video 1 -->
+                        <div class="video-card">
+                            <div class="video-thumbnail" data-video-id="1">
+                                <div class="video-thumb-icon">🏃</div>
+                                <button class="video-play-btn" onclick="playVideo(1)">▶</button>
+                            </div>
+                            <div class="video-info">
+                                <h3>Neck Stretches</h3>
+                                <p class="video-description">Easy neck stretching exercises for flexibility</p>
+                                <p class="video-duration">⏱️ Duration: 2 minutes</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Video 2 -->
+                        <div class="video-card">
+                            <div class="video-thumbnail" data-video-id="2">
+                                <div class="video-thumb-icon">💪</div>
+                                <button class="video-play-btn" onclick="playVideo(2)">▶</button>
+                            </div>
+                            <div class="video-info">
+                                <h3>Shoulder Rolls</h3>
+                                <p class="video-description">Improve shoulder mobility and reduce tension</p>
+                                <p class="video-duration">⏱️ Duration: 3 minutes</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Video 3 -->
+                        <div class="video-card">
+                            <div class="video-thumbnail" data-video-id="3">
+                                <div class="video-thumb-icon">🧘</div>
+                                <button class="video-play-btn" onclick="playVideo(3)">▶</button>
+                            </div>
+                            <div class="video-info">
+                                <h3>Back Extension</h3>
+                                <p class="video-description">Strengthen your back muscles safely</p>
+                                <p class="video-duration">⏱️ Duration: 2.5 minutes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video Player Modal -->
+                <div id="videoModal" class="video-modal" onclick="closeVideoModal()">
+                    <div class="video-modal-content" onclick="event.stopPropagation()">
+                        <button class="video-close-btn" onclick="closeVideoModal()">✕</button>
+                        <h3 id="videoModalTitle">Exercise Video</h3>
+                        <div class="video-player">
+                            <div class="video-demo-placeholder">
+                                <div class="video-demo-icon">🎬</div>
+                                <p id="videoPlayingText">Playing demonstration video...</p>
+                                <p class="video-demo-instruction">Follow along with the exercises</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="closeVideoModal()">Close Video</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Helper Screen -->
+            <div id="aiHelperScreen" class="content-screen">
+                <h2 class="screen-title">AI Health Assistant</h2>
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="placeholder-icon">🤖</div>
+                        <div>
+                            <h3>Your Virtual Health Companion</h3>
+                            <p>Ask health-related questions and get instant advice</p>
+                        </div>
+                    </div>
+                    <div class="chat-interface">
+                        <div id="chatMessages" class="chat-messages">
+                            <div class="chat-message ai-message">
+                                <div class="message-content">Hello! I'm your AI health assistant. How can I help you today? I can answer questions about symptoms, nutrition, prevention, and general health.</div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" placeholder="Type your health question..." class="chat-input">
+                            <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+                        </div>
+                    </div>
+                    <div class="chat-actions">
+                        <button class="btn btn-secondary" onclick="clearChat()">Clear Chat</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-Pharmacy Screen -->
+            <div id="epharmacyScreen" class="content-screen">
+                <div class="pharmacy-header">
+                    <h2 class="screen-title">E-Pharmacy</h2>
+                    <button class="cart-button" onclick="showCart()">
+                        <span class="cart-icon">🛒</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                </div>
+                
+                <!-- Medicine Catalog View -->
+                <div id="catalogView" class="pharmacy-view">
+                    <div class="medicines-grid" id="medicinesGrid">
+                        <!-- Medicines will be dynamically loaded here -->
+                    </div>
+                </div>
+                
+                <!-- Cart View -->
+                <div id="cartView" class="pharmacy-view" style="display: none;">
+                    <div class="cart-container">
+                        <div class="cart-header">
+                            <h3>Shopping Cart</h3>
+                            <button class="btn btn-secondary" onclick="showCatalog()">← Back to Catalog</button>
+                        </div>
+                        <div id="cartItems" class="cart-items">
+                            <!-- Cart items will be displayed here -->
+                        </div>
+                        <div id="cartEmpty" class="cart-empty" style="display: none;">
+                            <div class="placeholder-icon">🛒</div>
+                            <p>Your cart is empty</p>
+                            <button class="btn btn-primary" onclick="showCatalog()">Continue Shopping</button>
+                        </div>
+                        <div id="cartSummary" class="cart-summary" style="display: none;">
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="cartSubtotal">₹0</span>
+                            </div>
+                            <button class="btn btn-primary btn-full-width" onclick="showCheckout()">Proceed to Checkout</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Checkout View -->
+                <div id="checkoutView" class="pharmacy-view" style="display: none;">
+                    <div class="checkout-container">
+                        <div class="checkout-header">
+                            <h3>Checkout</h3>
+                            <button class="btn btn-secondary" onclick="showCart()">← Back to Cart</button>
+                        </div>
+                        
+                        <div class="checkout-content">
+                            <div class="checkout-form">
+                                <h4>Delivery Address</h4>
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="deliveryName" class="form-control" placeholder="Enter your full name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" id="deliveryPhone" class="form-control" placeholder="Enter 10-digit phone number" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea id="deliveryAddress" class="form-control" rows="3" placeholder="Enter complete address" required></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input type="text" id="deliveryCity" class="form-control" placeholder="City" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Pincode</label>
+                                        <input type="text" id="deliveryPincode" class="form-control" placeholder="6-digit pincode" required>
+                                    </div>
+                                </div>
+                                
+                                <h4>Payment Method</h4>
+                                <div class="payment-methods">
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="card" checked>
+                                        <span>💳 Credit/Debit Card</span>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="upi">
+                                        <span>📱 UPI</span>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="netbanking">
+                                        <span>🏦 Net Banking</span>
+                                    </label>
+                                    <label class="payment-option">
+                                        <input type="radio" name="payment" value="cod">
+                                        <span>💵 Cash on Delivery</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="checkout-summary">
+                                <h4>Order Summary</h4>
+                                <div id="checkoutItems" class="checkout-items-list">
+                                    <!-- Checkout items will be displayed here -->
+                                </div>
+                                <div class="checkout-totals">
+                                    <div class="summary-row">
+                                        <span>Subtotal:</span>
+                                        <span id="checkoutSubtotal">₹0</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Delivery Charges:</span>
+                                        <span id="checkoutDelivery">₹50</span>
+                                    </div>
+                                    <div class="summary-row total-row">
+                                        <span><strong>Total Amount:</strong></span>
+                                        <span><strong id="checkoutTotal">₹0</strong></span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary btn-full-width" onclick="placeOrder()">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Order Success View -->
+                <div id="orderSuccessView" class="pharmacy-view" style="display: none;">
+                    <div class="order-success-container">
+                        <div class="success-icon">✅</div>
+                        <h2>Order Placed Successfully!</h2>
+                        <p class="order-id">Order ID: <strong id="orderIdDisplay"></strong></p>
+                        <p class="success-message">Your medicines will be delivered to your address within 2-3 business days.</p>
+                        <div class="success-actions">
+                            <button class="btn btn-primary" onclick="returnToCatalog()">Continue Shopping</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile/Register Screen -->
+            <div id="profileScreen" class="content-screen">
+                <h2 class="screen-title">Profile &amp; Settings</h2>
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">👤</div>
+                    <h3>Your Profile</h3>
+                    <p>Manage your account settings and preferences.</p>
+                    <div class="profile-info">
+                        <div class="profile-item">
+                            <strong>Username:</strong> <span id="profileUsername">User</span>
+                        </div>
+                        <div class="profile-item">
+                            <strong>Email:</strong> <span id="profileEmail">user@example.com</span>
+                        </div>
+                        <div class="profile-item">
+                            <strong>Member Since:</strong> <span>2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="navigateToScreen('homeScreen')" data-screen="homeScreen">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" onclick="navigateToScreen('exploreScreen')" data-screen="exploreScreen">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-label">Explore</span>
+            </button>
+            <button class="nav-item" onclick="navigateToScreen('claimScreen')" data-screen="claimScreen">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label">Claim</span>
+            </button>
+            <button class="nav-item" onclick="navigateToScreen('physioScreen')" data-screen="physioScreen">
+                <span class="nav-icon">🏃</span>
+                <span class="nav-label">Physio</span>
+            </button>
+            <button class="nav-item" onclick="navigateToScreen('aiHelperScreen')" data-screen="aiHelperScreen">
+                <span class="nav-icon">🤖</span>
+                <span class="nav-label">AI Helper</span>
+            </button>
+            <button class="nav-item" onclick="navigateToScreen('epharmacyScreen')" data-screen="epharmacyScreen">
+                <span class="nav-icon">💊</span>
+                <span class="nav-label">Pharmacy</span>
+            </button>
+            <button class="nav-item" onclick="navigateToScreen('profileScreen')" data-screen="profileScreen">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">Profile</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
